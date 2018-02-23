@@ -1,0 +1,236 @@
+CSCI 136 - Lab 3
+
+* Lab 3. File I/O and Data Processing
+
+[[https://i.imgur.com/u51pFWF.jpg]]
+
+** Ashokan Reservoir
+
+Located in Ulster County, about 13 miles west of Kingston and 73 miles
+north of New York City. Formed by the damming of the Esopus Creek, which
+eventually flows northeast and drains into the Hudson River. Consisting
+of *two basins* separated by a concrete dividing weir and roadway, it
+*holds 122.9 billion gallons* at full capacity and was placed into
+service in 1915.
+
+[[http://www.nyc.gov/html/dep/html/watershed_protection/ashokan.shtml][The
+Ashokan]] is one of two reservoirs in the City's Catskill Water Supply
+System. The other is the Schoharie, located 27 miles to the north, whose
+water flows into the Ashokan via the Shandaken Tunnel and the Esopus
+Creek. Including the water it receives from the Schoharie Reservoir, the
+Ashokan supplies about *40% of New York City's daily drinking water*
+needs in non-drought periods.
+
+** Data on Ashokan water levels
+
+In this lab, we will be studying the Ashokan water levels for the year
+2016. It is available from /NYC Open Data/. Please follow these
+instructions to download the dataset:
+
+1. Follow the link NYC Open Data
+   [[https://data.cityofnewyork.us/Environment/Current-Reservoir-Levels/zkky-n5j3][Current
+   Reservoir Levels]].
+2. Choose the *View Data* menu option (it will reload the page).
+   [[https://i.imgur.com/bj2uhhb.png]]
+3. Disable unnecessary columns. To do that:
+
+   -  Click the brown button *Manage*
+   -  In the submenu *Show & Hide Columns*, unselect all columns except
+      the first five
+   -  Click *Apply* [[https://i.imgur.com/gSqFRIY.png]]
+
+4. Filter data including only the year 2016. To do that:
+
+   -  Click the blue button *Filter*
+   -  In its submenu *Filter*, click *Add a New Filter Condition*
+   -  Choose *Date is between* =January 1, 2016= and =December 31, 2016=
+      [[https://i.imgur.com/i68wEOm.png]]
+
+5. Sort entries /by Date/ in the /Ascending/ order.
+6. Export the data:
+
+   -  Click the light blue button *Export*
+   -  Choose *TSV for Excel* (it will produce a plain text data file in
+      /tab-separated values/ format).
+   -  Save obtained file =Current_Reservoir_Levels.tsv= on your hard
+      drive.
+
+** Data format
+
+*Don't open the datafile in Excel (that can mess up its formatting)*.
+Instead, you can open it with your text editor (gedit).
+
+The datafile is a plain text file whose first line is a header followed
+by rows of data. The entries in each row are separated by the /tab/
+symbol, hence the name of the file format: /TSV/ (tab-separated-values).
+It is the most convenient format for reading by our C++ program.
+
+Each row has five fields: /Date/, /Storage/ (in billions of gallons) and
+/Elevation/ (in feet) for the East basin and for the West basin of the
+reservoir:
+
+#+BEGIN_EXAMPLE
+    Date             EastStorage    EastElevation    WestStorage    WestElevation
+    01/01/2016          71.99           581.8           39.87           582.48
+    01/02/2016          71.97           581.79          39.82           582.44
+    01/03/2016          71.93           581.76          39.76           582.36
+    01/04/2016          71.93           581.76          39.67           582.27
+    ...
+#+END_EXAMPLE
+
+To read the datafile, we have to open an *input file stream*
+(represented by an object of type =ifstream=, here we called it =fin=):
+
+#+BEGIN_HTML
+  <div class="language-c++ highlighter-rouge">
+#+END_HTML
+
+#+BEGIN_HTML
+  <div class="highlight">
+#+END_HTML
+
+#+BEGIN_EXAMPLE
+    ifstream fin("Current_Reservoir_Levels.tsv");
+    if (fin.fail()) {
+        cerr << "File cannot be opened for reading." << endl;
+        exit(1); // exit if failed to open the file
+    }
+#+END_EXAMPLE
+
+#+BEGIN_HTML
+  </div>
+#+END_HTML
+
+#+BEGIN_HTML
+  </div>
+#+END_HTML
+
+Remember that the first line in the file is a header line. We have to
+skip it before we get to process the actual data. We can do that by
+reading that line into a temporary variable that we can call =junk=:
+
+#+BEGIN_HTML
+  <div class="language-c++ highlighter-rouge">
+#+END_HTML
+
+#+BEGIN_HTML
+  <div class="highlight">
+#+END_HTML
+
+#+BEGIN_EXAMPLE
+    string junk;        // new string variable
+    getline(fin, junk); // read one line from the file 
+#+END_EXAMPLE
+
+#+BEGIN_HTML
+  </div>
+#+END_HTML
+
+#+BEGIN_HTML
+  </div>
+#+END_HTML
+
+After that, the file can be read line by line. The most idiomatic C++
+way to read such well-formatted file until the end would be the
+following:
+
+#+BEGIN_HTML
+  <div class="language-c++ highlighter-rouge">
+#+END_HTML
+
+#+BEGIN_HTML
+  <div class="highlight">
+#+END_HTML
+
+#+BEGIN_EXAMPLE
+    while(fin >> date >> eastSt >> eastEl >> westSt >> westEl) { 
+        // this loop reads the file line-by-line
+        // extracting 5 values on each iteration 
+
+        // for example, to print the date and East basin storage:
+        cout << date << " " << eastSt << endl;
+    }
+#+END_EXAMPLE
+
+#+BEGIN_HTML
+  </div>
+#+END_HTML
+
+#+BEGIN_HTML
+  </div>
+#+END_HTML
+
+Here, variable =date= can be of type =string=, and the others are
+numeric variables of type =double= extracting the storage and elevation
+in East and West basins.
+
+After you are done reading the file, close the stream:
+
+#+BEGIN_HTML
+  <div class="language-c++ highlighter-rouge">
+#+END_HTML
+
+#+BEGIN_HTML
+  <div class="highlight">
+#+END_HTML
+
+#+BEGIN_EXAMPLE
+    fin.close();
+#+END_EXAMPLE
+
+#+BEGIN_HTML
+  </div>
+#+END_HTML
+
+#+BEGIN_HTML
+  </div>
+#+END_HTML
+
+*** Need to include additional header files
+
+The above code is using a new function =exit= and a stream class
+=ifstream=. To make them work, we have to include two new *headers* at
+the beginning of the program:
+
+#+BEGIN_HTML
+  <div class="language-c++ highlighter-rouge">
+#+END_HTML
+
+#+BEGIN_HTML
+  <div class="highlight">
+#+END_HTML
+
+#+BEGIN_EXAMPLE
+    #include <cstdlib>
+    #include <fstream>
+#+END_EXAMPLE
+
+#+BEGIN_HTML
+  </div>
+#+END_HTML
+
+#+BEGIN_HTML
+  </div>
+#+END_HTML
+
+
+** Overall lab assignment
+
+For this assignment, you will create a single program named
+**ashokan.cpp**. All tasks will be written as functions within this
+cpp file.
+
+** Prelab task (Task A)
+
+Create program **ashokan.cpp** and write a function that has the prototype:
+#+BEGIN_SRC cpp
+double east_storage(string date);
+#+END_SRC
+
+The function should read the TSV file with the reservoir levels as
+specified above and return the level of the East Storage column on the
+given date.
+
+If the date isn't in the TSV file, return 0.0.
+
+You will need to use this code as a basis for the rest of the lab.
