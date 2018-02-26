@@ -97,7 +97,7 @@ string compare (string date1, string date2) {
 }
 
 
-string reverse_order (string date1, string date2) {
+string reverse_order (string first_date, string second_date) {
     ifstream fin("Current_Reservoir_Levels.tsv");
     if (fin.fail()) {
       cerr << "File cannot be opened for reading." << endl;
