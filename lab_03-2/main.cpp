@@ -23,7 +23,7 @@ int main(){
 	//c 
 	cout << "Compare \n" << compare("09/13/2016", "09/14/2016") << endl;
 	//d
-	cout << reverse_order("05/29/2016","06/02/2016")
+	cout << reverse_order("05/29/2016","06/02/2016");
 
     fin.close();
 }
