@@ -3,6 +3,13 @@
 #include <cstdlib>
 #include <string>
 using namespace std;
+/*
+Author: Angela Lim
+Course: CSCI-133
+Instructor: Mike Zamansky
+Assignment: Lab3
+This program will read a file. Find min and max, comparing dates and doing reverse order.
+*/
 
 double east_storage(string valid_date){
 

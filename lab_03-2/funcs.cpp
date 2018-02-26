@@ -3,6 +3,14 @@
 #include <cstdlib>
 #include <string>
 using namespace std;
+/*
+Author: Angela Lim
+Course: CSCI-133
+Instructor: Mike Zamansky
+Assignment: Lab3
+This program will read a file. Find min and max, comparing dates and doing reverse order.
+*/
+
 
 double east_storage(string valid_date){
 
@@ -97,7 +105,7 @@ string compare (string date1, string date2) {
 }
 
 
-string reverse_order (string date1, string date2) {
+string reverse_order (string first_date, string second_date) {
     ifstream fin("Current_Reservoir_Levels.tsv");
     if (fin.fail()) {
       cerr << "File cannot be opened for reading." << endl;
