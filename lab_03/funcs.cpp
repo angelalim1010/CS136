@@ -47,8 +47,9 @@ double mineast() {
 			min = eastSt;
 		}
 	}
+  return min;
 	fin.close();
-	return min;
+
 }
 
 
@@ -69,8 +70,9 @@ double maxeast() {
 			max = eastSt;
 		}
 	}
+  return max;
 	fin.close();
-	return max;
+
 }
 
 
@@ -99,8 +101,9 @@ string compare (string date1, string date2) {
 			}
 		}
 	}
+  return ans;
 	fin.close();
-	return ans;
+
 }
 
 
@@ -120,8 +123,8 @@ string reverse_order (string first_date, string second_date) {
 			ans = date + " " + std::to_string(westEl) + "\n" + ans;
 		}
 	}
+  return ans;
 	fin.close();
-	return ans;
 }
 
 
