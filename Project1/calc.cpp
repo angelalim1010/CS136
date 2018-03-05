@@ -1,45 +1,33 @@
 #include <iostream>
-#include <sstream>
-#include <vector>
 using namespace std;
+/*
+Author: Angela Lim
+Assignment: Project Task B
+This program will read a file, accept symbols,
+formulas, and non-negative integers. This will be
+able to return the sum of the integers.
+*/
 int main(){
-	
-	int sum = 0;
-    int number;
-    vector<int> arr;
-    vector<string> op;
-    int counter = 0;
-    bool isAnum;
-    string num = "";
-    char s;
-
-    while(cin >> s) { 
-        isAnum = false;
-        if(s != 43 || s != 45)
-            isAnum = true;    
-        else if(isAnum){
-            num = s + num;
-            stringstream geek(num);
-            geek >> number;
-            arr.push_back(number);
+    int sum = 0;
+    // the sum of the read file
+    int first, number;
+    //first is the first integer we're reading
+    //number is the integers we're reading past the first operator
+    char op;
+    //this is to represent the + and - 
+    cin >> first;
+    sum = first;
+    // this will allow us to read and store the first integer
+    while (cin >> op >> number){
+        if (op == '+'){
+            sum += number;
+            //this will add the integers to the sum
         }
-        else if(s == 43){ 
-            op.push_back("+");//+
-        }
-        else if (s == 45){ //-
-            op.push_back("-");
-            
+        else if (op == '-'){
+            sum -= number;
+            //this will subtract the integers to the sum
         }
     }
-    sum = arr.at(0);
-    for(int i = 1; i < arr.size(); i++){
-        if(op.at(counter) == "+")
-            sum += arr.at(i);
-        else
-            sum -= arr.at(i);
-        counter++;
-    }
-    cout << sum << "\n";
+    cout << sum << endl;
     return 0;
-
 }
