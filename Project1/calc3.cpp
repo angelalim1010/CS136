@@ -51,12 +51,17 @@ int main() {
                 sum += number;
                 if (op2 == ';'){
                    cout << sum << endl; 
+                   cin >> number;
+                   sum = number;
                 } //return the sum 
             }
             else if (op == '-') {
                 sum -= number;
+
                 if (op2 == ';'){
                     cout << sum << endl;
+                    cin >> number;
+                    sum = number;
                 } // return a difference
             }
             
