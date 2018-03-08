@@ -2,7 +2,7 @@
 using namespace std;
 
 bool isDivisibleBy(int n, int d){
-	if (n%2 == 0){
+	if (n%d == 0){
 		return true;
 	}
 	else{
@@ -11,6 +11,9 @@ bool isDivisibleBy(int n, int d){
 }
 
 bool isPrime(int n){
+	if (n<=1){
+		return false;
+	}
 	for (int i = 2; i <= n/2; i++){
 		if (n%i == 0){
 			return false;
@@ -27,6 +30,18 @@ int nextPrime(int n){
 }
 
 
-int main(){
-	cout << nextPrime(15) << endl;
+int countPrimes(int a, int b){
+	int counter = 0;
+	for (int i = a; i <= b; i++){
+		if(isPrime(i)){
+			counter += 1;
+		}	
+	}	return counter;
 }
+
+int nextTwinPrime(int n){
+	
+}
+
+
+

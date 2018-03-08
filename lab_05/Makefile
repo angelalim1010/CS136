@@ -1,14 +1,19 @@
+CXXFLAGS=-std=c++14
+
 main: main.o funcs.o
-	g++ -o main main.o funcs.o
+		g++ -o main main.o funcs.o
+
+main.o: main.cpp funcs.h
+		g++ $(CXXFLAGS) -c main.cpp
 
 tests: tests.o funcs.o
-	g++ -o tests tests.o funcs.o
+		g++ -o tests tests.o funcs.o
 
 tests.o: tests.cpp funcs.h
+		g++ $(CXXFLAGS) -c tests.cpp
 
-main.o: main.cpp fact.h
-
-funcs.o: funcs.cpp fact.h
-
+funcs.o: funcs.cpp funcs.h
+		g++ $(CXXFLAGS) -c funcs.cpp
 clean:
-	rm fact.o main.o
+		rm -f main.o funcs.o
+

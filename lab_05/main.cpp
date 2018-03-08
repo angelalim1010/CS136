@@ -5,8 +5,9 @@
 using namespace std;
 int main()
 {	
-	bool isDivisibleBy(100, 25);
-	bool isPrime(3);
-	int nextPrime(12);
+	cout << isDivisibleBy(100,25) << endl;
+	cout << isPrime(3) << endl;
+	cout << nextPrime(12) << endl;
+	cout << countPrimes(12,20) << endl;
     return 0;
 }
