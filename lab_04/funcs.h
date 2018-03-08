@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-using namespace string;
+using namespace std;
 
 string box(int width, int height);
 
