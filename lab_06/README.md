@@ -1,4 +1,4 @@
-#Using LLBD(Having issues with GDB for Mac despite being installed)
+#Using LLBD(Having issues with GDB for Mac despite being installed, took time to switch/figure out the problem)
 I first compiled the program then ran the LLBD.
 ##lldb a.out
 I did llbd a.out
