@@ -6,5 +6,7 @@ using namespace std;
 int main(){
 	testascii("Cat :3 Dog");
 	cout << encryptCaesar("hello", 5) << endl;
+	cout << encryptVigenere("hello", "cake") << endl;
+	cout << decryptCaesar("Mjqqt", 5) << endl;
 	return 0;
 }
