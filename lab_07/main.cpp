@@ -8,5 +8,6 @@ int main(){
 	cout << encryptCaesar("hello", 5) << endl;
 	cout << encryptVigenere("hello", "cake") << endl;
 	cout << decryptCaesar("Mjqqt", 5) << endl;
+	cout << decryptVigenere("Jevpq", "cake") << endl;
 	return 0;
 }

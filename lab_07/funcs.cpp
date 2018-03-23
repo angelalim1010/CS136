@@ -51,3 +51,7 @@ string decryptCaesar(string ciphertext, int rshift){
 	return encryptCaesar(ciphertext, (rshift*-1));
 }
 
+string decryptVigenere(string ciphertext, string keyword){
+	return encryptVigenere(ciphertext, (rshift*-1));
+}
+

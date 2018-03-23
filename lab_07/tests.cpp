@@ -17,3 +17,6 @@ TEST_CASE("Testing decryptCaesar"){
 	CHECK(decryptCaesar("Btwqi", 5)== "World");
 }
 
+TEST_CASE("Testing decryptVigenere"){
+	CHECK(decryptVigenere("Jevpq", "cake") == "Hello");
+}
