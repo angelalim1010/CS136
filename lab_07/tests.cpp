@@ -10,6 +10,7 @@ TEST_CASE("Testing encryptCaesar"){
 
 TEST_CASE("Testing encryptVigenere"){
 	CHECK(encryptVigenere("hello", "cake") == "jevpq");
+	CHECK(encryptVigenere("World", "cake") == "Yobpf");
 }
 
 TEST_CASE("Testing decryptCaesar"){
@@ -17,6 +18,8 @@ TEST_CASE("Testing decryptCaesar"){
 	CHECK(decryptCaesar("Btwqi", 5)== "World");
 }
 
-TEST_CASE("Testing decryptVigenere"){
+TEST_CASE("Testing decryptvigenere"){
 	CHECK(decryptVigenere("Jevpq", "cake") == "Hello");
+	CHECK(decryptVigenere("Yobpf", "cake") == "World");
 }
+

@@ -38,8 +38,8 @@ string encryptVigenere(string plaintext, string keyword){
 	int counter = 0;
 	string s = "";
 	for(int i = 0; i < plaintext.length(); i++){
-    	s += shiftChar(plaintext[i],(int)keyword[counter] - 97);
-    	counter += 1; 
+    	s += shiftChar(plaintext[i],((int)keyword[counter] - 97)%26);
+    	counter += 1;
     	if(counter > keyword.length()-1){
 		counter = 0;
 		}
@@ -52,6 +52,17 @@ string decryptCaesar(string ciphertext, int rshift){
 }
 
 string decryptVigenere(string ciphertext, string keyword){
-	return encryptVigenere(ciphertext, (rshift*-1));
+	int counter = 0;
+	string s = "";
+	for(int i = 0; i < ciphertext.length(); i++){
+    	s += shiftChar(ciphertext[i],-((int)keyword[counter] - 97));
+    	counter += 1; 
+    	if(counter > keyword.length()-1){
+		counter = 0;
+		}
+	}
+	return s;
+
 }
+
 
