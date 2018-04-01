@@ -10,7 +10,6 @@ it will return its pronouncation, words with identical pronouncation,
 words produced if added a phoneme, if you removed a phoneme and replaced a phoneme.
 */
 #include <iostream>
-#include <cstdlib>
 #include <fstream>
 #include <string>
 using namespace std;
