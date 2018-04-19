@@ -80,32 +80,7 @@ void writeImage(int image[MAX_H][MAX_W], int height, int width, char name[]) {
 	ostr.close();
 	return;
 }
-void writeImage2(int image[MAX_H*2][MAX_W*2], int height, int width, char name[]) {
-	ofstream ostr;
-	ostr.open(name);
-	if (ostr.fail()) {
-		cout << "Unable to write file\n";
-		exit(1);
-	};
 
-	// print the header
-	ostr << "P2" << endl;
-	// width, height
-	ostr << width << ' ';
-	ostr << height << endl;
-	ostr << 255 << endl;
-
-	for (int row = 0; row < height; row++) {
-		for (int col = 0; col < width; col++) {
-			assert(image[row][col] < 256);
-			assert(image[row][col] >= 0);
-			ostr << image[row][col] << ' ';
-			ostr << endl;
-		}
-	}
-	ostr.close();
-	return;
-}
 
 void invert(int out[MAX_H][MAX_W], int image[MAX_H][MAX_W], int height, int width){
 	for(int row = 0; row < height; row++) {
@@ -165,15 +140,28 @@ void frame(int out[MAX_H][MAX_W], int image[MAX_H][MAX_W], int height, int width
 	}
 }
 
-void scale (int out[MAX_H*2][MAX_W*2], int image[MAX_H][MAX_W], int height, int width){
-	for(int row = 0; row < h; row++) {
-		for(int col = 0; col < w; col++) {
-			out[row][col] = img[row][col];
-			out[row + 1][col + 1] = img[row][col];
-		}
-		for (int i = 0; i < width; i++){
-			out[row*2][width] = out[row][width];
+void scale (int out[MAX_H][MAX_W], int image[MAX_H][MAX_W], int height, int width){
+	for(int row = 0; row < height; row++) {
+		for(int col = 0; col < width; col++) {
+			out[row*2][col*2] = image[row][col];
+			out[row *2 ][col *2 +1 ] = image[row][col];
+			out[row *2 +1 ][col *2 ] = image[row][col];
+			out[row *2 +1 ][col *2 +1 ] = image[row][col];
 		}
 	}
 }
 
+void pixelate(int out[MAX_H][MAX_W], int image[MAX_H][MAX_W], int height, int width){
+	int sum = 0;
+	int avg = 0;
+	for(int row = 0; row < height; row+=2) {
+		for(int col = 0; col < width; col+=2) {
+			sum = 0;
+			sum += image[row][col] + image[row+1][col] + image[row][col+1] + image[row+1][col+1];
+			out[row][col] = image[row][col];
+			out[row +1 ][col] = image[row][col];
+			out[row][col + 1] = image[row][col];
+			out[row + 1 ][col + 1] = image[row][col];
+		}
+	}
+}

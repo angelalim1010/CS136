@@ -42,9 +42,15 @@ int main() {
 
 	//task e;
 	char ename[] = "task-e.pgm";
-	int out2[MAX_H*2][MAX_W*2];
-	scale (out2, img, h*2, w*2);
-	writeImage2 (out,h,w,dname);
+	scale (out, img, h, w);
+	writeImage (out,h*2,w*2,ename);
+
+	//task f;
+	char fname[] = "task-f.pgm";
+	pixelate (out, img, h, w);
+	writeImage(out,h,w,fname);
+
+
 	return 0;
 }
 
