@@ -1,6 +1,6 @@
-/*
-  Author:   <---  Write your name here
 
+/*
+  Author:   Angela Lim
   Description:
     The program reads a PGM image from the file "inImage.pgm",
     and outputs a modified image to "outImage.pgm"
@@ -11,11 +11,10 @@
 #include <cassert>
 #include <cstdlib>
 #include <fstream>
+#include "funcs.h"
 
 using namespace std;
 
-const int MAX_H = 512;
-const int MAX_W = 512;
 
 // Reads a PGM file.
 // Notice that: height and width are passed by reference!
@@ -55,9 +54,35 @@ void readImage(int image[MAX_H][MAX_W], int &height, int &width) {
 
 // Writes a PGM file
 // Need to provide the array data and the image dimensions
-void writeImage(int image[MAX_H][MAX_W], int height, int width) {
+void writeImage(int image[MAX_H][MAX_W], int height, int width, char name[]) {
 	ofstream ostr;
-	ostr.open("outImage.pgm");
+	ostr.open(name);
+	if (ostr.fail()) {
+		cout << "Unable to write file\n";
+		exit(1);
+	};
+
+	// print the header
+	ostr << "P2" << endl;
+	// width, height
+	ostr << width << ' ';
+	ostr << height << endl;
+	ostr << 255 << endl;
+
+	for (int row = 0; row < height; row++) {
+		for (int col = 0; col < width; col++) {
+			assert(image[row][col] < 256);
+			assert(image[row][col] >= 0);
+			ostr << image[row][col] << ' ';
+			ostr << endl;
+		}
+	}
+	ostr.close();
+	return;
+}
+void writeImage2(int image[MAX_H*2][MAX_W*2], int height, int width, char name[]) {
+	ofstream ostr;
+	ostr.open(name);
 	if (ostr.fail()) {
 		cout << "Unable to write file\n";
 		exit(1);
@@ -82,34 +107,73 @@ void writeImage(int image[MAX_H][MAX_W], int height, int width) {
 	return;
 }
 
-int main() {
+void invert(int out[MAX_H][MAX_W], int image[MAX_H][MAX_W], int height, int width){
+	for(int row = 0; row < height; row++) {
+		for(int col = 0; col < width; col++) {
+			out[row][col] = (255-image[row][col]);
+		}
+	}
+}
 
-	int img[MAX_H][MAX_W];
-	int h, w;
+void halfinvert(int out[MAX_H][MAX_W],int image[MAX_H][MAX_W], int height, int width){
+	 for(int row = 0; row < height; row++) {
+		for(int col = 0; col < width; col++) {
+			if (col > width/2){
+				out[row][col] = (255-image[row][col]);
+			}
+			else {
+				out[row][col] = (image[row][col]);
+			}
+		}
+	}
+}
 
-	readImage(img, h, w); // read it from the file "inImage.pgm"
-	// h and w were passed by reference and
-	// now contain the dimensions of the picture
-	// and the 2-dimesional array img contains the image data
+void whitebox(int out[MAX_H][MAX_W], int image[MAX_H][MAX_W], int height, int width){
+	int w1,h1,w2,h2;
+	w1 = width/4;
+	w2 = w1+ (width/2);
+	h1 = height/4;
+	h2 = h1 + (height/2);
+	 for(int row = 0; row < height; row++) {
+		for(int col = 0; col < width; col++) {
+			if ((row >= h1 && row <= h2) && (col >= w1 && col <= w2)){
+				out[row][col] = 255;
+			}
+			else{
+				out[row][col] = image[row][col];
+			}
+		}
+	}
+}
 
-	// Now we can manipulate the image the way we like
-	// for example we copy its contents into a new array
-	int out[MAX_H][MAX_W];
+void frame(int out[MAX_H][MAX_W], int image[MAX_H][MAX_W], int height, int width){
+	int w1,h1,w2,h2,x,y;
+	w1 = width/4;
+	w2 = w1+ (width/2);
+	h1 = height/4;
+	h2 = h1 + (height/2);
+	 for(int row = 0; row < height; row++) {
+		for(int col = 0; col < width; col++) {
+			if (((row == h1 || row == h2) && (col >= w1 && col <= w2)) 
+				|| ((col == w1 || col == w2) && (row >= h1 && row <= h2))){
+				out[row][col] = 255;
+			}
+			else{
+				out[row][col] = image[row][col];
+			}
+		}
+	}
+}
 
+void scale (int out[MAX_H*2][MAX_W*2], int image[MAX_H][MAX_W], int height, int width){
 	for(int row = 0; row < h; row++) {
 		for(int col = 0; col < w; col++) {
 			out[row][col] = img[row][col];
+			out[row + 1][col + 1] = img[row][col];
+		}
+		for (int i = 0; i < width; i++){
+			out[row*2][width] = out[row][width];
 		}
 	}
-
-	// and save this new image to file "outImage.pgm"
-	writeImage(out, h, w);
-	for(int row = 0; row < h; row++) {
-		for(int col = 0; col < w; col++) {
-			if()
-			out[row][col] = img[row][col];
-		}
-	}
-
 }
 
