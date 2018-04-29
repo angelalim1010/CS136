@@ -33,9 +33,9 @@ checkAvail(bool): check to see which row is available for the whole "gravity" co
 compMove(): includes "makeMove" where input is randomized
 
 ##Team Split-Up
-1 person builds framework
-2 creating input/output 
-3 checking win
+Person 1 builds framework (i.e making the board)
+Person 2 creating input/output (i.e making the input/output system for player 1 and comp)
+Person 3 checking win (i.e checking each move to see if anyone won)
 
 ## UI
 
