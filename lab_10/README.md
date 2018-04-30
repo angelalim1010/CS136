@@ -1,0 +1,1 @@
+Time spent: whole lab period for A and B

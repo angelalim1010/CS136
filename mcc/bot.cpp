@@ -21,6 +21,7 @@ void onStart(int num, int rows, int cols, double mpr,
 	log << "Start!" << endl;
 }
 
+extern int health[50] = 1;
  
 
 /* Deciding robot's next move */
@@ -33,19 +34,7 @@ Action onRobotAction(int id, Loc loc, Area &area, ostream &log) {
 	if (area.inspect(row, col) == DEBRIS){
 				return COLLECT;
 	}
-	/*
-	for (int row; row <ROWS; row++){
-		for (int col; col < COLS; col++){
-			if (area.inspect(row , col) == DEBRIS){
-				return COLLECT;
-			}
-			else if (area.inspect(row+2, col+2) == DEBRIS)
-			{
-				return COLLECT;
-			}
-		}
-	}	
-
+/*
 	else {
 		// if not at a debris field, move randomly:
 		switch(rand() % 4) {
@@ -83,8 +72,29 @@ Action onRobotAction(int id, Loc loc, Area &area, ostream &log) {
 		pre_move = 3
 		}
 	}
+
 */
 
+	for(int r = 0; r < NUM; r++){
+		//if array is 0 then repair 
+			if(broken(r)){
+				//if at r is broken take the nearest bot to repair it
+				//save the location
+				//robot id -1 to go and repair it
+				if(area.locate(r-1).r == (area.locate(r).r-1)){
+					return REPAIR_UP;
+				}
+				else if (area.locate(r-1).r == (area.locate(r).r+1)){
+					return REPAIR_DOWN;
+				}
+				else if (area.locate(r-1).c == (area.locate(r).c-1)){
+					return REPAIR_LEFT;
+				}
+				else if (area.locate(r-1).c == (area.locate(r).c+1)){
+					return REPAIR_RIGHT;
+				}
+			}
+	}
 	if(area.inspect(row-1,col)==DEBRIS){
 		return UP;
 	}
@@ -120,9 +130,21 @@ Action onRobotAction(int id, Loc loc, Area &area, ostream &log) {
 	}
 }
 
+bool broken(int id){
+	//if onRobotMalfunction is true
+	if (health[id] == 0){
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+
 
 void onRobotMalfunction(int id, Loc loc, Area &area, ostream &log) {
 	log << "Robot " << id << " is damaged." << endl;
+	health[id] == 0;
 }
 
 void onClockTick(int time, ostream &log) {
