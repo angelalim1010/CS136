@@ -1,6 +1,12 @@
 #include <iostream>
 #include "labstructs.h"
 using namespace std;
+
+void printTime(Time time) {
+    cout << time.h << ":" << time.m;
+}
+
+
 //task a
 int minutesSinceMidnight(Time time){
 	int minhour = 0;
@@ -35,14 +41,17 @@ int minutesUntil(Time earlier, Time later){
 //task b
 
 Time addMinutes(Time time0, int min){
-	int newhour = 0;
+	//int newhour = 0;
 	if (min > 60){
-		newhour += (time0.h + (min%60));
-		time0.h = newhour;
-		time0.m = (min - time0.m);
+		time0.h = (time0.h + (min%60));
+		//time0.h = newhour;
+		time0.m = ((min-60)+time0.m);
 	}
 	else{
 		time0.m = (min+time0.m);
 	}
 	return time0;
 }
+
+
+

@@ -15,3 +15,7 @@ TEST_CASE("Testing minutesUntil"){
 	CHECK(minutesUntil({1,20},{4,40}) == 200);
 	CHECK(minutesUntil({10,30}, {13,20}) == 170);
 }
+
+TEST_CASE("Testing "{
+	CHECK( == )
+})
