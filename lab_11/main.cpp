@@ -57,14 +57,7 @@ int main() {
              << getPosition(p).z << endl;
     }
     // remove the particle, deallocating its memory
-    deleteParticle(p);
-        while(true) {
-        string *p;
-        p = createAPoemDynamically();
 
-        // assume that the poem p is not needed at this point
-        delete p;
-    }
 }
 
 

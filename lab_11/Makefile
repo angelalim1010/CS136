@@ -14,5 +14,9 @@ tests.o: tests.cpp def.h
 
 funcs.o: funcs.cpp def.h
 		g++ $(CXXFLAGS) -c funcs.cpp
+poem: poem.o
+		g++ -o poem poem.o 
+poem.o: poem.cpp
+		g++	$(CXXFLAGS) -c poem.cpp
 clean:
-		rm -f main.o funcs.o tests.o
+		rm -f main.o funcs.o tests.o poem.o
