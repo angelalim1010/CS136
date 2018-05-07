@@ -26,17 +26,6 @@ int main() {
     cout << pos.x << " " << pos.y << " " << pos.z << endl;
     // prints: 2 -10 100.4
    
-
-    //d
-    while(true) {
-        string *p;
-        p = createAPoemDynamically();
-
-        // assume that the poem p is not needed at this point
-        delete p;
-    }
-    //double x, y, z;
-  
     Coord3D *ppos = createCoord3D(10,20,30);
     Coord3D *pvel = createCoord3D(5.5,-1.4,7.77);
 
@@ -48,6 +37,7 @@ int main() {
     deleteCoord3D(ppos); // release memory
     deleteCoord3D(pvel);
     // f
+    
     Particle *p = createParticle(1.0, 1.5, 2.0, 0.1, 0.2, 0.3);
     double time = 0.0;
     double dt = 0.1;
@@ -68,4 +58,14 @@ int main() {
     }
     // remove the particle, deallocating its memory
     deleteParticle(p);
+        while(true) {
+        string *p;
+        p = createAPoemDynamically();
+
+        // assume that the poem p is not needed at this point
+        delete p;
+    }
 }
+
+
+    
