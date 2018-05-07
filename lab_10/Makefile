@@ -15,4 +15,4 @@ tests.o: tests.cpp labstructs.h
 funcs.o: funcs.cpp labstructs.h
 		g++ $(CXXFLAGS) -c funcs.cpp
 clean:
-		rm -f main.o funcs.o
+		rm -f main.o funcs.o tests.o
